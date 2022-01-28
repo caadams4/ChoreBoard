@@ -3,6 +3,9 @@ import '../App.css';
 import {Form,Button, Container, Row, Col } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import firebase from "../utilities/firebase";
+import chore from '../interfaces/chore';
+import choreList from "../interfaces/choreList";
+
 
 function Register(): JSX.Element {
     
@@ -62,9 +65,7 @@ function Register(): JSX.Element {
     function errorCheck(): boolean {
 
         const pass = passwordCheck();
-
         const eml = emailCheck();
-
         const usrn = usernameCheck();
 
         if (pass === true || eml === true || usrn === true) {
@@ -86,6 +87,33 @@ function Register(): JSX.Element {
         console.log("creating " + username + "'s account!")
 
         firebase.fbauth.createUserWithEmailAndPassword(firebase.auth,email, password).then(data => {
+
+            let uid = data.user.uid;
+            let userRef = firebase.rtdb.ref(firebase.db, `/users/${uid}`);
+
+            const initialChore: chore = {
+                    taskName : "Make more tasks!",
+                    taskCreated : new Date().getTime().toString(),
+                    taskAssigned : username,
+                    taskCompleted : false,
+                }
+            
+            const userTemplate = { 
+                uid : {
+                    username: username,
+                    email: email,
+                    choreList: [initialChore],
+                    friendList: [],
+                } 
+            }
+
+            firebase.rtdb.set(userRef, userTemplate).then(data=>{console.log(data)}).catch(function(error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+
             navigate('/');
         }).catch(function(error) {
             const errorCode = error.code;
@@ -101,8 +129,7 @@ function Register(): JSX.Element {
 
         .then(data=>{
 
-            let uid = data.user.uid;
-            let userRef = firebase.rtdb.ref(firebase.db, `/users/${uid}`);
+            
 
             const initailTask = {
                 taskName: "My first task!",
@@ -111,21 +138,9 @@ function Register(): JSX.Element {
                 taskCompleted: "No",
             }
 
-            const userTemplate = { 
-                uid : {
-                    username: username,
-                    email: email,
-                    taskList: [initailTask],
-                    friendList: ["tom"],
-                } 
-            }
+
     
-            firebase.rtdb.set(userRef, userTemplate).then(data=>{console.log(data)}).catch(function(error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
+
             */
 
             //navigate('/');            
