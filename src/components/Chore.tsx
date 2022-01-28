@@ -7,14 +7,20 @@ import choreList from "../interfaces/choreList";
 
 function Chore({chore}:{chore:chore}): JSX.Element {
 
+    const [taskCompleted,setTaskCompleted] = useState<boolean>(chore.taskCompleted);
+
+    function handleCheckBox() {
+        taskCompleted ? setTaskCompleted(false) : setTaskCompleted(true);
+    }
+
     function addTask() {
         alert(chore.taskCompleted);
     }
-    if (chore.taskCompleted === true) {
+
         return (
             <Row>
                 <Col>   
-                    <FormCheck checked={true}/>
+                    <FormCheck checked={taskCompleted} onChange={handleCheckBox}/>
                 </Col>
                 <Col>
                     <div>{chore.taskName}</div>
@@ -27,24 +33,6 @@ function Chore({chore}:{chore:chore}): JSX.Element {
                 </Col>
             </Row>
         )
-    } else {
-        return (
-            <Row>
-                <Col>   
-                    <FormCheck/>
-                </Col>
-                <Col>
-                    <div>{chore.taskName}</div>
-                </Col>
-                <Col>
-                    <div>{chore.taskCreated}</div>
-                </Col>
-                <Col>
-                    <div>{chore.taskAssigned}</div>
-                </Col>
-            </Row>
-        )
-    }
 }
 
 export default Chore
