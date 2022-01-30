@@ -29,7 +29,13 @@ function Login(): JSX.Element {
             return;
         }
 
-        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).catch(function(error) {
+        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).then(data => {
+
+            let uid = data.user.uid;
+
+            firebase.userCreds = uid;
+
+        }).catch(function(error) {
             setLoginError("Email and password do not match")
             const errorCode = error.code;
             const errorMessage = error.message;

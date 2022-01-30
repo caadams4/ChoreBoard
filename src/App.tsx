@@ -21,27 +21,24 @@ function App() {
     })
   });
 
-  
-
-    if (login === true) {
-
-      return (
-          <div className="body">
-            <Routes>
-              <Route path="/" element={<ChoreBoard/>}/>
-            </Routes>
-          </div>
-      )
-    } else {
-      return (
+  if (login === true) {
+    return (
         <div className="body">
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<ChoreBoard/>}/>
           </Routes>
         </div>
-      )
-    }
+    )
+  } else {
+    return (
+      <div className="body">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    )
+  }
 }
 
 export default App;

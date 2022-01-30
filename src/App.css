@@ -65,3 +65,11 @@ label {
   background-color: #001044;
   height: 100vh;
 }
+
+.btnLeft {
+  margin-left: 3vh;
+}
+
+.btnRight {
+  margin-right: 3vh;
+}

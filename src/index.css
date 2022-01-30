@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  margin: auto;
+  color: rgb(223, 145, 0);
+  font-family: fantasy;
+}

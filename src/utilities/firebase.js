@@ -17,7 +17,9 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 let auth = fbauth.getAuth(fbApp);
 let db = rtdb.getDatabase(fbApp);
+let userCreds = '';
 
 
-const firebase = { rtdb , fbauth , auth , db };
+const firebase = { rtdb , fbauth , auth , db , userCreds };
 export default firebase;
+
