@@ -7,29 +7,49 @@ import chore from "../interfaces/chore";
 export function AddChoreModal({choreList, visible, setVisible}: {choreList: choreList, visible: boolean, setVisible: (b: boolean) => void}): JSX.Element {
 
     const [choreName, setChoreName] = useState<string>('');
-    const [choreDate, setChoreDate]  = useState<string>('');
     const [choreAssigned, setChoreAssigned] = useState<string>('');
-    const [choreCompleted, setChoreCompleted] = useState<boolean>(false);
+    const [errorChore, setErrorChore] = useState<string>('');
+    const [errorAssigned, setErrorAssigned]  = useState<string>('');
 
-
-
-
-    /*
-export interface chore {
-        taskName: string,
-        taskCreated: string,
-        taskAssigned: string,
-        taskCompleted: boolean,
-}
-    */
+    const errorCheck = () =>{
+        let error = false;
+        if (choreName === "") {
+            setErrorChore("Enter a chore to add to your list!")
+            error = true;
+        } if (choreAssigned === "") {
+            setErrorAssigned("Assign your chore to someone!");
+            error = true;
+        }
+        return error;
+    }
 
     const save = () => {
-        //send to DB
 
+        const err = errorCheck();
+
+        if (err === true) {
+            return;
+        }
+
+        const time = new Date().getTime();
+        const timeStr = time.toString();
+        const newChore: chore = {
+            taskName: choreName,
+            taskCreated: timeStr,
+            taskAssigned: choreAssigned,
+            taskCompleted: false,
+        }
+
+        let newList: chore[] = choreList.chores.map(c=>c);
+        newList = [...newList, newChore]
+        console.log(newList);
+        //send to DB
     }
 
     const hide = () => {   
         setVisible(false);
+        setErrorAssigned("");
+        setErrorChore("");
     };
     
     return (
@@ -41,12 +61,14 @@ export interface chore {
             <Modal.Body>
                 <Form>
                     <Form.Group>
-                        <Form.Label data-testid = "ClassYear">Class Year</Form.Label>
+                        <Form.Label data-testid = "ClassYear">Chore</Form.Label>
+                                {<div className="text-danger">{errorChore}</div>}
                         <Form.Control as="textarea" rows={1} aria-label="sem-class-year"
                             value={choreName} onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => setChoreName(ev.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label data-testid = "Season">Season Semester</Form.Label>
+                        <Form.Label data-testid = "Season">Assigned To</Form.Label>
+                                {<div className="text-danger">{errorAssigned}</div>}
                         <Form.Control as="textarea" rows={1} aria-label="sem-season"
                             value={choreAssigned} onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => setChoreAssigned(ev.target.value)}> </Form.Control>
                     </Form.Group>

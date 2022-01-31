@@ -18,6 +18,7 @@ function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
     function addTask() {
         console.log(JSON.stringify(firebase.auth));
         console.log(firebase.userCreds);
+        addChoreVisible ? setAddChoreVisible(false) : setAddChoreVisible(true);
     }
 
     let taskRef = firebase.rtdb.ref(firebase.db, `/users/${firebase.userCreds}/uid/choreList/`);
