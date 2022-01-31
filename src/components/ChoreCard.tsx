@@ -6,11 +6,14 @@ import { PlusCircleFill } from 'react-bootstrap-icons'
 import chore from "../interfaces/chore";
 import choreList from "../interfaces/choreList";
 import Chore from "./Chore";
+import { AddChoreModal } from "./AddChoreModal";
 
 //let userRef = firebase.rtdb.ref(firebase.db, `/users/${auth.uid}/`);
 //
 
 function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
+
+    const [addChoreVisible,setAddChoreVisible] = useState<boolean>(false);
 
     function addTask() {
         console.log(JSON.stringify(firebase.auth));
@@ -27,8 +30,6 @@ function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
         choreIds.map((c)=>{
             let choreObj = chores[c];
             console.log(choreObj);
-
-
         })
     })
 
@@ -64,7 +65,7 @@ function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
                                 )}
                             )} 
                             <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
-                            
+                            <AddChoreModal choreList={choreList} visible={addChoreVisible} setVisible={setAddChoreVisible}></AddChoreModal>
                         </Container>
                     </div>
                 </Col>
