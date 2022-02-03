@@ -4,35 +4,49 @@ import firebase from "../utilities/firebase";
 import { Container, Col, Row, Button, FormCheck } from 'react-bootstrap';
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import chore from "../interfaces/chore";
-import choreList from "../interfaces/choreList";
+import choreCard from "../interfaces/choreCard";
 import Chore from "./Chore";
 import { AddChoreModal } from "./AddChoreModal";
 
-//let userRef = firebase.rtdb.ref(firebase.db, `/users/${auth.uid}/`);
-//
+let taskRef = firebase.rtdb.ref(firebase.db, `/users/${firebase.userCreds}/uid/`);
 
-function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
+const choresSample: chore[] = [
+    {
+        taskName : "Make more tasks!",
+        taskCreated : "1/28/2022",
+        taskAssigned : "Me",
+        taskCompleted : true,
+    },
+    {
+        taskName : "burp",
+        taskCreated : "burp",
+        taskAssigned : "burp",
+        taskCompleted : false,
+    }
+]
+
+const choreListSample: choreCard[] = [
+    {
+        title: "yee",
+        author: "Charles",
+        editors: "Charles",
+        viewers: "Charles",
+        choresActive: choresSample,
+        choresCompleted: [],
+    }
+]
+
+function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
 
     const [addChoreVisible,setAddChoreVisible] = useState<boolean>(false);
 
     function addTask() {
-        console.log(JSON.stringify(firebase.auth));
-        console.log(firebase.userCreds);
+        firebase.rtdb.push(taskRef)
         addChoreVisible ? setAddChoreVisible(false) : setAddChoreVisible(true);
     }
 
-    let taskRef = firebase.rtdb.ref(firebase.db, `/users/${firebase.userCreds}/uid/choreList/`);
 
-
-    firebase.rtdb.onValue(taskRef,ss=>{
-        let chores = ss.val();
-        console.log(JSON.stringify(chores));
-        let choreIds = Object.keys(chores);
-        choreIds.map((c)=>{
-            let choreObj = chores[c];
-            console.log(choreObj);
-        })
-    })
+    
 
 
 
@@ -60,13 +74,13 @@ function ChoreCard({choreList}:{choreList:choreList}): JSX.Element {
                                 </Col>
                                 <hr></hr>
                             </Row>
-                            {choreList.chores.map(c=>{
+                            {choreList.choresActive.map(c=>{
                                 return (
-                                    <Chore chore={c}/>
+                                    <Chore chore={c} />
                                 )}
                             )} 
                             <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
-                            <AddChoreModal choreList={choreList} visible={addChoreVisible} setVisible={setAddChoreVisible}></AddChoreModal>
+                            <AddChoreModal choreList={choreList} choreListTitle={choreList.title} visible={addChoreVisible} setVisible={setAddChoreVisible}></AddChoreModal>
                         </Container>
                     </div>
                 </Col>

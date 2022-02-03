@@ -4,7 +4,9 @@ import {Form,Button, Container, Row, Col } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import firebase from "../utilities/firebase";
 import chore from '../interfaces/chore';
-import choreList from "../interfaces/choreList";
+import choreCard from "../interfaces/choreCard";
+import { title } from "process";
+import ChoreCard from "./ChoreCard";
 
 
 function Register(): JSX.Element {
@@ -20,6 +22,12 @@ function Register(): JSX.Element {
     const [emailError, setEmailError] = useState<string>('');
     const [rePasswordError,setRePasswordError] = useState<string>('');
     const [registerError,setRegisterError] = useState<string>('');
+
+    const buildJSON = (key:string,value:string): JSON => {
+        const toString = `{"`+key+`":`+ value+`}`;
+        const userChoreData = (JSON.parse(toString));
+        return userChoreData;
+    }
 
     function resetErrors() {
         setEmailError("");
@@ -40,6 +48,7 @@ function Register(): JSX.Element {
             setPasswordError('Password must contain 6 characters');
             return true;
         }
+
         return false;
     }
 
@@ -50,6 +59,7 @@ function Register(): JSX.Element {
             setEmailError("Not a valid email");
             return true;
         }
+
         return false;
     }
 
@@ -59,6 +69,7 @@ function Register(): JSX.Element {
             setUsernameError("Enter a username");
             return true;
         }
+
         return false;
     }
 
@@ -79,38 +90,52 @@ function Register(): JSX.Element {
     function handleRegisterUser() {
 
         const inputError = errorCheck();
-
         if (inputError === true) {
             return;
         }
 
-        console.log("creating " + username + "'s account!")
-
         firebase.fbauth.createUserWithEmailAndPassword(firebase.auth,email, password).then(data => {
 
             let uid = data.user.uid;
-
             firebase.userCreds = uid;
-
-            let userRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/`);
+            let userRef = firebase.rtdb.ref(firebase.db, `/users/`);
 
             const initialChore: chore = {
-                    taskName : "Make more tasks!",
-                    taskCreated : new Date().getTime().toString(),
-                    taskAssigned : username,
-                    taskCompleted : false,
-                }
-            
-            const userTemplate = { 
-                uid : {
-                    username: username,
-                    email: email,
-                    choreList: [initialChore],
-                    friendList: [],
-                } 
+                taskName : "Make more tasks!",
+                taskCreated : new Date().getTime().toString(),
+                taskAssigned : username,
+                taskCompleted : false,
             }
 
-            firebase.rtdb.set(userRef, userTemplate).then(data=>{console.log(data)}).catch(function(error) {
+            const completedChore: chore = {
+                taskName : "Make an account",
+                taskCreated : new Date().getTime().toString(),
+                taskAssigned : username,
+                taskCompleted : true,
+            }
+
+            const initialChoreCard = {
+                title: "General Chores",
+                author: "Charles",
+                editors: "Charles",
+                viewers: "Charles",
+                choresActive: [initialChore], //initialChore
+                choresCompleted: [completedChore],
+            }
+
+            const toString = `{"`+initialChoreCard.title+`":`+ JSON.stringify(initialChoreCard)+`}`;
+            const userChoreData = (JSON.parse(toString));
+
+            const userTemplate = {              
+                username: username,
+                email: email,
+                choreLists: userChoreData, //initilaChoreCard,secondChoreCard
+                friendList: "null",
+            } 
+
+            const uidUserTemplate = buildJSON(uid,JSON.stringify(userTemplate));
+            
+            firebase.rtdb.update(userRef, uidUserTemplate).then(data=>{console.log(data)}).catch(function(error) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode);
@@ -127,26 +152,7 @@ function Register(): JSX.Element {
             console.log(errorCode);
             console.log(errorMessage);
         });
-
-        /* --> ** Can be used to push user data to rtdb with above function **
-
-        .then(data=>{
-
-            
-
-            const initailTask = {
-                taskName: "My first task!",
-                taskDescription: "Make some more tasks",
-                taskCreated: new Date().getTime(),
-                taskCompleted: "No",
-            }
-
-
-    
-
-            */
-
-            //navigate('/');            
+       
         }
         
     

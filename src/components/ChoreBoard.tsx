@@ -6,7 +6,8 @@ import { Button, Container, Col, Row, Navbar, Offcanvas } from 'react-bootstrap'
 import { PersonBadge } from 'react-bootstrap-icons'
 import '../App.css'
 import chore from "../interfaces/chore";
-import choreList from "../interfaces/choreList";
+import choreCard from "../interfaces/choreCard";
+
 
 const choresSample: chore[] = [
     {
@@ -23,22 +24,23 @@ const choresSample: chore[] = [
     }
 ]
 
-const choreListSample: choreList[] = [
+const choreListSample: choreCard[] = [
     {
-    author: "Charles",
-    editors: "Charles",
-    viewers: "Charles",
-    chores: choresSample,
+        title: "yee",
+        author: "Charles",
+        editors: "Charles",
+        viewers: "Charles",
+        choresActive: choresSample,
+        choresCompleted: [],
     }
 ]
-
 
 function ChoreBoard(): JSX.Element {
 
     const [taskList,setTaskList] = useState<string[]>(['']);
     const [optionsVisible,setOptionsVisible] = useState<boolean>(false);
     const [myChores,setMyChores] = useState<chore[]>([])
-    const [choreLists,setChoreLists] = useState<choreList[]>(choreListSample);
+    const [choreLists,setChoreLists] = useState<choreCard[]>(choreListSample);
 
     function handleSignout() {
         firebase.fbauth.signOut(firebase.auth);
