@@ -10,31 +10,7 @@ import { AddChoreModal } from "./AddChoreModal";
 
 let taskRef = firebase.rtdb.ref(firebase.db, `/users/${firebase.userCreds}/uid/`);
 
-const choresSample: chore[] = [
-    {
-        taskName : "Make more tasks!",
-        taskCreated : "1/28/2022",
-        taskAssigned : "Me",
-        taskCompleted : true,
-    },
-    {
-        taskName : "burp",
-        taskCreated : "burp",
-        taskAssigned : "burp",
-        taskCompleted : false,
-    }
-]
 
-const choreListSample: choreCard[] = [
-    {
-        title: "yee",
-        author: "Charles",
-        editors: "Charles",
-        viewers: "Charles",
-        choresActive: choresSample,
-        choresCompleted: [],
-    }
-]
 
 function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
 

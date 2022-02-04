@@ -52,7 +52,7 @@ export function AddChoreModal({choreList, choreListTitle, visible, setVisible}: 
         
         let uid = firebase.userCreds;
         console.log(uid)
-        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/${choreList.title}/choresActive/`);
+        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/choresActive/`);
 
         firebase.rtdb.set(choreRef, newList).then(data=>{console.log(data)}).catch(function(error) {
         const errorCode = error.code;
