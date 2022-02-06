@@ -115,7 +115,7 @@ function Register(): JSX.Element {
             }
 
             const initialChoreCard = {
-                title: "General Chores",
+                title: "GeneralChores",
                 author: "Charles",
                 editors: "Charles",
                 viewers: "Charles",

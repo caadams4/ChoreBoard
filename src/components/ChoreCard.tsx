@@ -22,8 +22,6 @@ function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
     }
 
 
-    
-
 
 
     return (

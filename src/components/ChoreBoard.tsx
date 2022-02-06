@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChoreCard from "./ChoreCard";
 import firebase from "../utilities/firebase";
 import { Button, Container, Col, Row, Navbar, Offcanvas } from 'react-bootstrap';
@@ -44,7 +44,7 @@ function ChoreBoard(): JSX.Element {
     const [taskList,setTaskList] = useState<string[]>(['']);
     const [optionsVisible,setOptionsVisible] = useState<boolean>(false);
     const [myChores,setMyChores] = useState<chore[]>([])
-    const [choreLists,setChoreLists] = useState<choreCard[]>(choreListSample);
+    const [choreLists,setChoreLists] = useState<choreCard[]>([]);
     const [userData,setUserData] = useState<string>('');
 
 
@@ -52,13 +52,30 @@ function ChoreBoard(): JSX.Element {
         let uid = firebase.userCreds;
         let listRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/`);
         await firebase.rtdb.onValue(listRef,ss=>{
+            /*
+            let choreList = ss.val();
+            let keys = Object.keys(choreList);
+            keys.map((choreList)=>
+            let choreListObj = choreList[choreList])
+            */
             console.log(ss.val());
-            setUserData(ss.val());
+            //const choreListDB: choreCard[] = ss.val()["GeneralChores"];
+            console.log(choreListSample)
+            //setChoreLists(choreListDB);
+            //setChoreLists(choreListActive);
+            
+            let choreListDB: choreCard[]= [ss.val()["GeneralChores"]];
+            //let newChoresData = choreListDB.map((c: any)=>c);
+            //console.log([newChoresData]);
+            console.log(choreListDB);
+            setChoreLists(choreListDB);
+            console.log(choreLists)
         })
-
     }
 
-    //getChoreLists();
+    useEffect(() => {
+        getChoreLists();
+      }, []);
 
     function handleSignout() {
         firebase.fbauth.signOut(firebase.auth);
