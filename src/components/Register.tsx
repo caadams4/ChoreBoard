@@ -109,7 +109,7 @@ function Register(): JSX.Element {
 
             const completedChore: chore = {
                 taskName : "Make an account",
-                taskCreated : new Date().getTime().toString(),
+                taskCreated :  new Date().getTime().toString(),
                 taskAssigned : username,
                 taskCompleted : true,
             }

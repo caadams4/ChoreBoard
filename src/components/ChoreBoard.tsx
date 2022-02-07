@@ -35,10 +35,6 @@ const choreListSample: choreCard[] = [
     }
 ]
 
-
-
-
-
 function ChoreBoard(): JSX.Element {
 
     const [taskList,setTaskList] = useState<string[]>(['']);
@@ -52,24 +48,8 @@ function ChoreBoard(): JSX.Element {
         let uid = firebase.userCreds;
         let listRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/`);
         await firebase.rtdb.onValue(listRef,ss=>{
-            /*
-            let choreList = ss.val();
-            let keys = Object.keys(choreList);
-            keys.map((choreList)=>
-            let choreListObj = choreList[choreList])
-            */
-            console.log(ss.val());
-            //const choreListDB: choreCard[] = ss.val()["GeneralChores"];
-            console.log(choreListSample)
-            //setChoreLists(choreListDB);
-            //setChoreLists(choreListActive);
-            
             let choreListDB: choreCard[]= [ss.val()["GeneralChores"]];
-            //let newChoresData = choreListDB.map((c: any)=>c);
-            //console.log([newChoresData]);
-            console.log(choreListDB);
             setChoreLists(choreListDB);
-            console.log(choreLists)
         })
     }
 
@@ -104,8 +84,6 @@ function ChoreBoard(): JSX.Element {
                 <Offcanvas.Title>myProfile</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    Change profile options here!
-                    <Button>PullDB</Button>
                 </Offcanvas.Body>
             </Offcanvas>
 
