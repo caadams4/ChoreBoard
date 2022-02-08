@@ -7,9 +7,12 @@ import chore from '../interfaces/chore';
 import choreCard from "../interfaces/choreCard";
 import { title } from "process";
 import ChoreCard from "./ChoreCard";
+import { browserLocalPersistence } from "firebase/auth";
+import { getLocalStorageUID, LOCAL_STORAGE_UID } from '../utilities/helper'
 
 
-function Register(): JSX.Element {
+
+function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
     
     let navigate = useNavigate();
     
@@ -94,10 +97,12 @@ function Register(): JSX.Element {
             return;
         }
 
-        firebase.fbauth.createUserWithEmailAndPassword(firebase.auth,email, password).then(data => {
 
-            let uid = data.user.uid;
-            firebase.userCreds = uid;
+        firebase.fbauth.createUserWithEmailAndPassword(firebase.auth,email, password).then(data => {
+            
+            let uid1 = data.user.uid;
+            setUid(uid1);
+            localStorage.setItem(LOCAL_STORAGE_UID, uid1);
             let userRef = firebase.rtdb.ref(firebase.db, `/users/`);
 
             const initialChore: chore = {
@@ -133,7 +138,7 @@ function Register(): JSX.Element {
                 friendList: "null",
             } 
 
-            const uidUserTemplate = buildJSON(uid,JSON.stringify(userTemplate));
+            const uidUserTemplate = buildJSON(uid1,JSON.stringify(userTemplate));
             
             firebase.rtdb.update(userRef, uidUserTemplate).then(data=>{console.log(data)}).catch(function(error) {
                 const errorCode = error.code;
@@ -153,7 +158,7 @@ function Register(): JSX.Element {
             console.log(errorMessage);
         });
        
-        }
+    }
         
     
     return(

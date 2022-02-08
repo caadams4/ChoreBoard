@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import { browserLocalPersistence } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import firebase from "../utilities/firebase";
+import { getLocalStorageUID, LOCAL_STORAGE_UID } from '../utilities/helper'
 
 
-function Login(): JSX.Element {
+function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
+
+    let navigate = useNavigate();
 
     const [password,setPassword] = useState<string>('');
     const [email,setEmail] = useState<string>('');
@@ -21,6 +25,7 @@ function Login(): JSX.Element {
         return false;
     }
 
+
     function handleLoginUser() {
 
         const inputError = emailCheck();
@@ -29,11 +34,11 @@ function Login(): JSX.Element {
             return;
         }
 
-        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).then(data => {
+        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).then(async data => {
 
-            let uid = data.user.uid;
-
-            firebase.userCreds = uid;
+            let uid1 = data.user.uid;
+            await setUid(uid1);
+            localStorage.setItem(LOCAL_STORAGE_UID, uid1);
 
         }).catch(function(error) {
             setLoginError("Email and password do not match")
@@ -45,7 +50,9 @@ function Login(): JSX.Element {
             console.log(errorCode);
             console.log(errorMessage);
         });
+        navigate('/');
     }
+
 
     return(
         <Container>

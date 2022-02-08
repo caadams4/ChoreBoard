@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "../utilities/firebase";
 import { Container, Col, Row, Button, FormCheck } from 'react-bootstrap';
 import { PlusCircleFill } from 'react-bootstrap-icons'
@@ -12,7 +12,7 @@ let taskRef = firebase.rtdb.ref(firebase.db, `/users/${firebase.userCreds}/uid/`
 
 
 
-function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
+function ChoreCard({choreList,uid}:{choreList:choreCard,uid:string}): JSX.Element {
 
     const [addChoreVisible,setAddChoreVisible] = useState<boolean>(false);
 
@@ -21,7 +21,9 @@ function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
         addChoreVisible ? setAddChoreVisible(false) : setAddChoreVisible(true);
     }
 
-
+    useEffect(()=>{
+        console.log(choreList)
+      });
 
 
     return (
@@ -50,11 +52,11 @@ function ChoreCard({choreList}:{choreList:choreCard}): JSX.Element {
                             </Row>
                             {choreList.choresActive.map(c=>{
                                 return (
-                                    <Chore chore={c} />
+                                    <Chore uid={uid} chore={c} choreList={choreList} />
                                 )}
                             )} 
                             <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
-                            <AddChoreModal choreList={choreList} choreListTitle={choreList.title} visible={addChoreVisible} setVisible={setAddChoreVisible}></AddChoreModal>
+                            <AddChoreModal choreList={choreList} choreListTitle={choreList.title} visible={addChoreVisible} setVisible={setAddChoreVisible} uid={uid}></AddChoreModal>
                         </Container>
                     </div>
                 </Col>

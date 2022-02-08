@@ -6,10 +6,16 @@ import Register from './components/Register';
 import ChoreBoard from './components/ChoreBoard';
 import firebase from './utilities/firebase';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { inMemoryPersistence } from "firebase/auth";
+import { getLocalStorageUID } from "./utilities/helper"
+import { setuid } from "process";
+
 
 
 function App() {
-  const [login,setLogin] = useState(true);
+
+  const [login,setLogin] = useState<boolean>(true);
+  const [uid,setUid] = useState<string>(getLocalStorageUID);
 
   useEffect(()=>{
     firebase.fbauth.onAuthStateChanged(firebase.auth,user=>{
@@ -19,13 +25,13 @@ function App() {
         setLogin(true);
       }
     })
-  });
+  },[setUid]);
 
   if (login === true) {
     return (
         <div className="body">
           <Routes>
-            <Route path="/" element={<ChoreBoard/>}/>
+            <Route path="/" element={<ChoreBoard uid={uid} setUid={setUid}/>}/>
           </Routes>
         </div>
     )
@@ -33,8 +39,8 @@ function App() {
     return (
       <div className="body">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Login setUid={setUid}/>} />
+          <Route path="/register" element={<Register setUid={setUid}/>} />
         </Routes>
       </div>
     )

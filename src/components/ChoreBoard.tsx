@@ -35,17 +35,14 @@ const choreListSample: choreCard[] = [
     }
 ]
 
-function ChoreBoard(): JSX.Element {
-
+function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX.Element {
     const [taskList,setTaskList] = useState<string[]>(['']);
     const [optionsVisible,setOptionsVisible] = useState<boolean>(false);
     const [myChores,setMyChores] = useState<chore[]>([])
     const [choreLists,setChoreLists] = useState<choreCard[]>([]);
-    const [userData,setUserData] = useState<string>('');
 
 
     const getChoreLists = async () => {
-        let uid = firebase.userCreds;
         let listRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/`);
         await firebase.rtdb.onValue(listRef,ss=>{
             let choreListDB: choreCard[]= [ss.val()["GeneralChores"]];
@@ -55,10 +52,11 @@ function ChoreBoard(): JSX.Element {
 
     useEffect(() => {
         getChoreLists();
-      }, []);
+      },[uid]);
 
     function handleSignout() {
-        firebase.fbauth.signOut(firebase.auth);
+        
+        firebase.fbauth.signOut(firebase.auth).then(()=>setUid(""));
     }
 
     const handleClose = () => setOptionsVisible(false);
@@ -75,7 +73,7 @@ function ChoreBoard(): JSX.Element {
 
             {choreLists.map(c=>{
                 return(
-                    <ChoreCard choreList={c} />
+                    <ChoreCard choreList={c} uid={uid}/>
                 )}
             )}
 
@@ -84,6 +82,7 @@ function ChoreBoard(): JSX.Element {
                 <Offcanvas.Title>myProfile</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
+                    <Button onClick={()=>{console.log(uid)}}>click me</Button>
                 </Offcanvas.Body>
             </Offcanvas>
 
