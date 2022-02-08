@@ -1,14 +1,10 @@
-import { browserLocalPersistence } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Col, Container, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import firebase from "../utilities/firebase";
-import { getLocalStorageUID, LOCAL_STORAGE_UID } from '../utilities/helper'
 
 
-function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
-
-    let navigate = useNavigate();
+function Login(): JSX.Element {
 
     const [password,setPassword] = useState<string>('');
     const [email,setEmail] = useState<string>('');
@@ -25,7 +21,6 @@ function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
         return false;
     }
 
-
     function handleLoginUser() {
 
         const inputError = emailCheck();
@@ -34,11 +29,11 @@ function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
             return;
         }
 
-        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).then(async data => {
+        firebase.fbauth.signInWithEmailAndPassword(firebase.auth, email, password).then(data => {
 
-            let uid1 = data.user.uid;
-            await setUid(uid1);
-            localStorage.setItem(LOCAL_STORAGE_UID, uid1);
+            let uid = data.user.uid;
+
+            firebase.userCreds = uid;
 
         }).catch(function(error) {
             setLoginError("Email and password do not match")
@@ -50,9 +45,7 @@ function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
             console.log(errorCode);
             console.log(errorMessage);
         });
-        navigate('/');
     }
-
 
     return(
         <Container>

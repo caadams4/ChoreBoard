@@ -6,7 +6,7 @@ import chore from "../interfaces/chore";
 import firebase from "../utilities/firebase";
 import { hrtime } from "process";
 
-export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisible}: {uid: string,choreList: choreCard, choreListTitle: string, visible: boolean, setVisible: (b: boolean) => void}): JSX.Element {
+export function AddChoreModal({choreList, choreListTitle, visible, setVisible}: {choreList: choreCard, choreListTitle: string, visible: boolean, setVisible: (b: boolean) => void}): JSX.Element {
 
     const [choreName, setChoreName] = useState<string>('');
     const [choreAssigned, setChoreAssigned] = useState<string>('');
@@ -37,7 +37,8 @@ export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisib
             return;
         }
 
-        const timeStr = Date().valueOf().slice(0,15);
+        const time = new Date().getTime();
+        const timeStr = time.toString();
         const newChore = {
             taskName: choreName,
             taskCreated: timeStr,
@@ -47,9 +48,9 @@ export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisib
 
         let newList: chore[] = choreList.choresActive.map((c: any)=>c);
         newList = [...newList, newChore];
-    
-
+        //push2DB(newList);
         
+        let uid = firebase.userCreds;
         console.log(uid)
         let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/choresActive/`);
 
