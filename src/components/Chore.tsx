@@ -35,14 +35,12 @@ function Chore({chore, choreList, uid}:{chore:chore, choreList: choreCard, uid: 
         
 
     }
-
+    
     useEffect(() => {
         save();
       }, [taskCompleted,setTaskCompleted] );
 
-    function addTask() {
-        alert(chore.taskCompleted);
-    }
+
 
         return (
             <Row>

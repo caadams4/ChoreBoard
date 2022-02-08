@@ -73,7 +73,7 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
 
             {choreLists.map(c=>{
                 return(
-                    <ChoreCard choreList={c} uid={uid}/>
+                    <ChoreCard key={c.title} choreList={c} uid={uid}/>
                 )}
             )}
 

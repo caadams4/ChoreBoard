@@ -21,10 +21,6 @@ function ChoreCard({choreList,uid}:{choreList:choreCard,uid:string}): JSX.Elemen
         addChoreVisible ? setAddChoreVisible(false) : setAddChoreVisible(true);
     }
 
-    useEffect(()=>{
-        console.log(choreList)
-      });
-
 
     return (
         <Container>
@@ -52,7 +48,7 @@ function ChoreCard({choreList,uid}:{choreList:choreCard,uid:string}): JSX.Elemen
                             </Row>
                             {choreList.choresActive.map(c=>{
                                 return (
-                                    <Chore uid={uid} chore={c} choreList={choreList} />
+                                    <Chore key={c.taskName} uid={uid} chore={c} choreList={choreList} />
                                 )}
                             )} 
                             <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
