@@ -47,8 +47,6 @@ export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisib
 
         let newList: chore[] = choreList.choresActive.map((c: any)=>c);
         newList = [...newList, newChore];
-    
-
         
         console.log(uid)
         let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/choresActive/`);

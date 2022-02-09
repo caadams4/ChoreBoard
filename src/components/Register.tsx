@@ -112,9 +112,10 @@ function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
                 taskCompleted : false,
             }
 
+            const timeStr = Date().valueOf().slice(0,15);
             const completedChore: chore = {
                 taskName : "Make an account",
-                taskCreated :  new Date().getTime().toString(),
+                taskCreated :  timeStr,
                 taskAssigned : username,
                 taskCompleted : true,
             }
