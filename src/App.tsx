@@ -27,6 +27,7 @@ function App() {
     })
   },[setUid]);
 
+  /*
   if (login === true) {
     return (
         <div className="body">
@@ -45,6 +46,8 @@ function App() {
       </div>
     )
   }
+  */
+  return (<Register setUid={setUid}/>)
 }
 
 export default App;
