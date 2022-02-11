@@ -14,7 +14,7 @@ import { setuid } from "process";
 
 function App() {
 
-  const [login,setLogin] = useState<boolean>(true);
+  const [login,setLogin] = useState<boolean>(false);
   const [uid,setUid] = useState<string>(getLocalStorageUID);
 
   useEffect(()=>{
