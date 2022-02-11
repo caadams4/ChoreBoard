@@ -31,6 +31,33 @@ function ChoreCard({choreList,uid}:{choreList:choreCard,uid:string}): JSX.Elemen
         console.log(deleteMode)
     }
     
+    // Clear Tasks, reset. 
+
+    const clearCompleted= () => {
+        console.log(uid);
+        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/choresActive/`);
+
+        let newChoreList: chore[] = []; 
+        choreList.choresActive.forEach(c=>{
+            if (c.taskCompleted === false) {
+                const copyChore: chore = {
+                    taskName : c.taskName,
+                    taskCreated :  c.taskCreated,
+                    taskAssigned : c.taskAssigned,
+                    taskCompleted : false,
+                }
+                newChoreList = [...newChoreList,copyChore];
+            }
+        });
+        console.log(newChoreList)
+
+        firebase.rtdb.set(choreRef,newChoreList).then(data=>{console.log(data)}).catch(function(error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
+    }
 
 
     return (
@@ -41,8 +68,18 @@ function ChoreCard({choreList,uid}:{choreList:choreCard,uid:string}): JSX.Elemen
                         <Container className='cardGuts'>
                             <Row>
                                 <div>
-                                
-                                <h3>{choreList.author}'s Chore List</h3>
+                                    <Row>
+                                        <Col xs={3}>
+                                            <Button className="controlBtns" onClick={clearCompleted}>Clear Completed</Button>
+                                            <Button onClick={()=>{console.log("Yee")}}>Clear All</Button>
+                                        </Col>
+                                        <Col>
+                                            <h3>{choreList.author}'s Chore List</h3>
+                                        </Col>
+                                        <Col xs={3}>
+                                        </Col>
+                                    </Row>
+                                <hr></hr>
                                 </div>
                             </Row>
                             <Row>

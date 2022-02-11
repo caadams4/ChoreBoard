@@ -49,7 +49,7 @@ function Chore({chore, choreList, uid, deleteMode, setDeleteMode}:{chore:chore, 
                 
             <Row>
                 <Col xs={2}>  
-                    <FormCheck checked={taskCompleted} onChange={handleCheckBox}/>
+                    <FormCheck className="checkbox" checked={taskCompleted} onChange={handleCheckBox}/>
                 </Col>
                 <Col>
                     <div>{chore.taskName}</div>
