@@ -7,7 +7,7 @@ import choreCard from "../interfaces/choreCard";
 import firebase from "../utilities/firebase";
 import ChoreCard from "./ChoreCard";
 
-function Chore({chore, choreList, uid, deleteMode, setDeleteMode}:{chore:chore, choreList: choreCard, uid: string, deleteMode: boolean, setDeleteMode:(d:boolean)=>void}): JSX.Element {
+function Chore({choreListTitle,chore, choreList, uid, deleteMode, setDeleteMode}:{choreListTitle:string,chore:chore, choreList: choreCard, uid: string, deleteMode: boolean, setDeleteMode:(d:boolean)=>void}): JSX.Element {
 
     const [taskCompleted,setTaskCompleted] = useState<boolean>(chore.taskCompleted);
 
@@ -18,7 +18,9 @@ function Chore({chore, choreList, uid, deleteMode, setDeleteMode}:{chore:chore, 
 
     const save = () => {
         console.log(uid);
-        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/`);
+        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreListTitle}/`);
+
+        console.log(choreListTitle)
 
         const newChoreList = choreList.choresActive.map(c=>{
             if (c.taskName === chore.taskName) {
@@ -49,7 +51,7 @@ function Chore({chore, choreList, uid, deleteMode, setDeleteMode}:{chore:chore, 
                 
             <Row>
                 <Col xs={2}>  
-                    <FormCheck className="checkbox" checked={taskCompleted} onChange={handleCheckBox}/>
+                    <FormCheck  className="checkbox" checked={taskCompleted} onChange={handleCheckBox}/>
                 </Col>
                 <Col>
                     <div>{chore.taskName}</div>

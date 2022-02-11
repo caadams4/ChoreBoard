@@ -122,9 +122,9 @@ function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
 
             const initialChoreCard = {
                 title: "GeneralChores",
-                author: "Charles",
-                editors: "Charles",
-                viewers: "Charles",
+                author: username,
+                editors: username,
+                viewers: username,
                 choresActive: [initialChore], //initialChore
                 choresCompleted: [completedChore],
             }

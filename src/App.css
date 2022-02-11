@@ -62,7 +62,7 @@ label {
 }
 
 .body {
-  background-color: #001044;
+  background-color: #ffffff;
   height: 100vh;
 }
 
@@ -77,4 +77,10 @@ label {
 
 .controlBtns{
   margin-right: 5px;
+}
+
+.header {
+  margin: auto;
+  color: rgb(23, 201, 255);
+  font-family: fantasy;
 }
