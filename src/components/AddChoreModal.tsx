@@ -44,21 +44,34 @@ export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisib
             taskAssigned: choreAssigned,
             taskCompleted: false,
         }
+        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreListTitle}/`);
+        console.log(choreList.title)
+        console.log(choreListTitle)
+        console.log(choreList.choresActive)
+        if (choreList.choresActive !== undefined) {
 
-        let newList: chore[] = choreList.choresActive.map((c: any)=>c);
-        newList = [...newList, newChore];
-    
+            let newList: chore[] = choreList.choresActive.map((c: any)=>c);
+            newList = [...newList, newChore];
+            firebase.rtdb.set(choreRef, {choresActive : newList}).then(data=>{console.log(data)}).catch(function(error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                });
 
-        
-        console.log(uid)
-        let choreRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/${choreList.title}/choresActive/`);
+        } else {
 
-        firebase.rtdb.set(choreRef, newList).then(data=>{console.log(data)}).catch(function(error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        });
+            let newList: chore[] = [newChore];
+            firebase.rtdb.set(choreRef, {choresActive : newList}).then(data=>{console.log(data)}).catch(function(error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                });
+
+        }
+
+
         
         hide();
     }
@@ -124,7 +137,7 @@ export function AddChoreModal({uid, choreList, choreListTitle, visible, setVisib
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="primary" onClick={save}>Add Chore</Button>
+                <Button variant="info" onClick={save}>Add Chore</Button>
                 <Button variant="secondary" onClick={hide}>Close</Button>
             </Modal.Footer>
         </Modal>

@@ -40,12 +40,14 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
     const [optionsVisible,setOptionsVisible] = useState<boolean>(false);
     const [myChores,setMyChores] = useState<chore[]>([])
     const [choreLists,setChoreLists] = useState<choreCard[]>([]);
-
+    const [choreListTitle,setChoreListTitle] = useState<string>("GeneralChores")
 
     const getChoreLists = async () => {
         let listRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/`);
         await firebase.rtdb.onValue(listRef,ss=>{
             let choreListDB: choreCard[]= [ss.val()["GeneralChores"]];
+            console.log("Chore list should be: ")
+            console.log(choreListDB)
             setChoreLists(choreListDB);
         })
     }
@@ -65,15 +67,15 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
     return (
         <div>
 
-            <Navbar bg="dark" variant="dark">
-                <div className="btnLeft"><Button onClick={handleSignout}>Sign Out</Button></div>
+            <Navbar  bg="dark">
+                <div className="btnLeft"><Button variant="outline-info" onClick={handleSignout}>Sign Out</Button></div>
                 <h1 className="header">ChoreBoard</h1>
-                <div className="btnRight"><Button onClick={handleShow}><PersonBadge width="32" height="32"/></Button></div>
-            </Navbar>
+                <div className="btnRight"><Button variant="outline-info"  onClick={handleShow}><PersonBadge width="32" height="32"/></Button></div>
+            </Navbar> 
 
             {choreLists.map(c=>{
                 return(
-                    <ChoreCard key={c.title} choreList={c} uid={uid}/>
+                    <ChoreCard key={choreListTitle} choreListTitle={choreListTitle} choreList={c} uid={uid}/>
                 )}
             )}
 
