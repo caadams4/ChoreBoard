@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ChoreBoard/static/css/main.93cd25dd.css",
+    "main.js": "/ChoreBoard/static/js/main.cfdd426d.js",
+    "static/js/787.84e7cbb1.chunk.js": "/ChoreBoard/static/js/787.84e7cbb1.chunk.js",
+    "index.html": "/ChoreBoard/index.html",
+    "main.93cd25dd.css.map": "/ChoreBoard/static/css/main.93cd25dd.css.map",
+    "main.cfdd426d.js.map": "/ChoreBoard/static/js/main.cfdd426d.js.map",
+    "787.84e7cbb1.chunk.js.map": "/ChoreBoard/static/js/787.84e7cbb1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93cd25dd.css",
+    "static/js/main.cfdd426d.js"
+  ]
+}
