@@ -233,4 +233,3 @@ function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
 
 
 export default Register;
-

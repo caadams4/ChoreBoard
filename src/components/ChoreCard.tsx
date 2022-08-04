@@ -109,7 +109,7 @@ function ChoreCard({choreListTitle,choreList,uid}:{choreListTitle:string,choreLi
                                             <Button variant="info" onClick={clearAll}>Clear All</Button>
                                         </Col>
                                         <Col>
-                                            <h3>{choreList.author}'s Chore List</h3>
+                                            <h3>My Chore List</h3>
                                         </Col>
                                         <Col xs={3}>
                                         </Col>

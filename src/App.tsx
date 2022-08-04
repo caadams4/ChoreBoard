@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { inMemoryPersistence } from "firebase/auth";
 import { getLocalStorageUID } from "./utilities/helper"
 import { setuid } from "process";
+import { Navbar } from "react-bootstrap";
 
 
 
@@ -27,7 +28,7 @@ function App() {
     })
   },[setUid]);
 
-  /*
+  
   if (login === true) {
     return (
         <div className="body">
@@ -39,6 +40,10 @@ function App() {
   } else {
     return (
       <div className="body">
+
+        <Navbar  bg="dark">
+            <h1 className="header">ChoreBoard</h1>
+        </Navbar> 
         <Routes>
           <Route path="/" element={<Login setUid={setUid}/>} />
           <Route path="/register" element={<Register setUid={setUid}/>} />
@@ -46,7 +51,7 @@ function App() {
       </div>
     )
   }
-  */
+  
   return (<Register setUid={setUid}/>)
 }
 
