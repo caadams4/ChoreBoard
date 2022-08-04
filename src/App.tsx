@@ -31,11 +31,11 @@ function App() {
   
   if (login === true) {
     return (
-        <div className="body">
-          <Routes>
-            <Route path="/" element={<ChoreBoard uid={uid} setUid={setUid}/>}/>
-          </Routes>
-        </div>
+      <div className="body">
+        <Routes>
+          <ChoreBoard uid={uid} setUid={setUid}/>
+        </Routes>
+      </div>
     )
   } else {
     return (
@@ -51,8 +51,7 @@ function App() {
       </div>
     )
   }
-  
-  return (<Register setUid={setUid}/>)
+
 }
 
 export default App;
