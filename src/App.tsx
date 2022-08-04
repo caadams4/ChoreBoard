@@ -32,15 +32,12 @@ function App() {
   if (login === true) {
     return (
       <div className="body">
-        <Routes>
           <ChoreBoard uid={uid} setUid={setUid}/>
-        </Routes>
       </div>
     )
   } else {
     return (
       <div className="body">
-
         <Navbar  bg="dark">
             <h1 className="header">ChoreBoard</h1>
         </Navbar> 

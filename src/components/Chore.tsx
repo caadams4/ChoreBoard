@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Container, Col, Row, Button, FormCheck } from 'react-bootstrap';
-import { PlusCircleFill,X } from 'react-bootstrap-icons'
 import chore from "../interfaces/chore";
 import choreCard from "../interfaces/choreCard";
 import firebase from "../utilities/firebase";

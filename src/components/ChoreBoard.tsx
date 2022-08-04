@@ -1,12 +1,11 @@
-
 import React, { useEffect, useState } from "react";
 import ChoreCard from "./ChoreCard";
 import firebase from "../utilities/firebase";
 import { Button, Container, Col, Row, Navbar, Offcanvas } from 'react-bootstrap';
-import { PersonBadge } from 'react-bootstrap-icons'
 import '../App.css'
 import chore from "../interfaces/chore";
 import choreCard from "../interfaces/choreCard";
+import { Navigate, useNavigate } from "react-router";
 
 
 const choresSample: chore[] = [
@@ -42,6 +41,9 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
     const [choreLists,setChoreLists] = useState<choreCard[]>([]);
     const [choreListTitle,setChoreListTitle] = useState<string>("GeneralChores")
 
+    const navigate = useNavigate();
+
+
     const getChoreLists = async () => {
         let listRef = firebase.rtdb.ref(firebase.db, `/users/${uid}/choreLists/`);
         await firebase.rtdb.onValue(listRef,ss=>{
@@ -59,6 +61,7 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
     function handleSignout() {
         
         firebase.fbauth.signOut(firebase.auth).then(()=>setUid(""));
+        navigate('/')
     }
 
     const handleClose = () => setOptionsVisible(false);
@@ -70,8 +73,7 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
             <Navbar  bg="dark">
                 <div className="btnLeft"><Button variant="outline-info" onClick={handleSignout}>Sign Out</Button></div>
                 <h1 className="header">ChoreBoard</h1>
-                <div className="btnRight"><Button variant="outline-info"  onClick={handleShow}><PersonBadge width="32" height="32"/></Button></div>
-            </Navbar> 
+             </Navbar> 
 
             {choreLists.map(c=>{
                 return(

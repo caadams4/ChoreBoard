@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../utilities/firebase";
 import { Container, Col, Row, Button, FormCheck } from 'react-bootstrap';
-import { PlusCircleFill, X } from 'react-bootstrap-icons'
 import chore from "../interfaces/chore";
 import choreCard from "../interfaces/choreCard";
 import Chore from "./Chore";
@@ -133,7 +132,7 @@ function ChoreCard({choreListTitle,choreList,uid}:{choreListTitle:string,choreLi
                                 <hr></hr>
                             </Row>
                             {choreList.choresActive.map((c)=>{return <Chore choreListTitle={choreListTitle}  uid={uid} chore={c} choreList={choreList} deleteMode={deleteMode} setDeleteMode={setDeleteMode}/>})}
-                            <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
+                            <Button onClick={addTask}>ICON</Button>
                             <AddChoreModal choreList={choreList} choreListTitle={choreListTitle} visible={addChoreVisible} setVisible={setAddChoreVisible} uid={uid}></AddChoreModal>
                         </Container>
                     </div>
@@ -184,7 +183,7 @@ function ChoreCard({choreListTitle,choreList,uid}:{choreListTitle:string,choreLi
                                 <hr></hr>
                             </Row>
 
-                            <PlusCircleFill width="24" height="24" role="button" onClick={addTask}/>
+                            <Button onClick={addTask}>ICON</Button>
                             <AddChoreModal choreList={choreList} choreListTitle={choreListTitle} visible={addChoreVisible} setVisible={setAddChoreVisible} uid={uid}></AddChoreModal>
                         </Container>
                     </div>
