@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ChoreBoard/static/css/main.93cd25dd.css",
-    "main.js": "/ChoreBoard/static/js/main.8449e7c3.js",
+    "main.js": "/ChoreBoard/static/js/main.fc567f0a.js",
     "static/js/787.84e7cbb1.chunk.js": "/ChoreBoard/static/js/787.84e7cbb1.chunk.js",
     "index.html": "/ChoreBoard/index.html",
     "main.93cd25dd.css.map": "/ChoreBoard/static/css/main.93cd25dd.css.map",
-    "main.8449e7c3.js.map": "/ChoreBoard/static/js/main.8449e7c3.js.map",
+    "main.fc567f0a.js.map": "/ChoreBoard/static/js/main.fc567f0a.js.map",
     "787.84e7cbb1.chunk.js.map": "/ChoreBoard/static/js/787.84e7cbb1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.93cd25dd.css",
-    "static/js/main.8449e7c3.js"
+    "static/js/main.fc567f0a.js"
   ]
 }
