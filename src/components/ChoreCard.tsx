@@ -132,7 +132,7 @@ function ChoreCard({choreListTitle,choreList,uid}:{choreListTitle:string,choreLi
                                 <hr></hr>
                             </Row>
                             {choreList.choresActive.map((c)=>{return <Chore choreListTitle={choreListTitle}  uid={uid} chore={c} choreList={choreList} deleteMode={deleteMode} setDeleteMode={setDeleteMode}/>})}
-                            <Button onClick={addTask}>ICON</Button>
+                            <Button onClick={addTask}>Add Task</Button>
                             <AddChoreModal choreList={choreList} choreListTitle={choreListTitle} visible={addChoreVisible} setVisible={setAddChoreVisible} uid={uid}></AddChoreModal>
                         </Container>
                     </div>
