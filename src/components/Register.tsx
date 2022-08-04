@@ -216,7 +216,7 @@ function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
                                 <div  className='col text-center'>
                                     <Button className="mb-2" variant='primary' onClick={handleRegisterUser}>Create Account</Button>
                                     <br></br>
-                                    Already have an account? Click <Link to="/">HERE</Link> to login!
+                                    Already have an account? Click <Link to="/ChoreBoard/">HERE</Link> to login!
                                 </div>
                             </Form.Group>
 

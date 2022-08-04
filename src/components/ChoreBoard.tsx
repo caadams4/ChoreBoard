@@ -61,7 +61,7 @@ function ChoreBoard({uid,setUid}:{uid:string,setUid: (uid:string)=>void  }): JSX
     function handleSignout() {
         
         firebase.fbauth.signOut(firebase.auth).then(()=>setUid(""));
-        navigate('/')
+        navigate('/ChoreBoard/')
     }
 
     const handleClose = () => setOptionsVisible(false);

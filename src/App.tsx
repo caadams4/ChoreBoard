@@ -42,8 +42,8 @@ function App() {
             <h1 className="header">ChoreBoard</h1>
         </Navbar> 
         <Routes>
-          <Route path="/" element={<Login setUid={setUid}/>} />
-          <Route path="/register" element={<Register setUid={setUid}/>} />
+          <Route path="/ChoreBoard/" element={<Login setUid={setUid}/>} />
+          <Route path="/ChoreBoard/register" element={<Register setUid={setUid}/>} />
         </Routes>
       </div>
     )
