@@ -50,7 +50,7 @@ function Login({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
             console.log(errorCode);
             console.log(errorMessage);
         });
-        navigate('/');
+        navigate('/ChoreBoard/');
     }
 
 

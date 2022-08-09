@@ -148,7 +148,7 @@ function Register({setUid}:{setUid: (uid:string)=>void  }): JSX.Element {
                 console.log(errorMessage);
             });
 
-            navigate('/');
+            navigate('/ChoreBoard/');
         }).catch(function(error) {
             const errorCode = error.code;
             const errorMessage = error.message;

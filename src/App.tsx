@@ -32,7 +32,9 @@ function App() {
   if (login === true) {
     return (
       <div className="body">
-          <ChoreBoard uid={uid} setUid={setUid}/>
+        <Routes>
+          <Route path="/ChoreBoard/" element={<ChoreBoard uid={uid} setUid={setUid}/>} />
+        </Routes>
       </div>
     )
   } else {
